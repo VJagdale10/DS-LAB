@@ -1,0 +1,97 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+    struct node *prev;
+};
+
+struct node *head;
+
+void insert_b(int item)  
+{        struct node *ptr    = (struct node *)malloc(sizeof(struct node));     
+if(head==NULL)   
+{         ptr->next = NULL;    
+ptr->prev=NULL;     
+ptr->data=item;     
+head=ptr;    
+}    
+else     
+{       
+    ptr->data=item;   
+    ptr->prev=NULL;    
+    ptr->next = head;     
+    head->prev=ptr;      
+    head=ptr;
+    }  
+    
+}
+
+
+void delete_pos( ) 
+{ 
+    struct node *ptr,*temp;    
+    int val;       
+    printf("\nEnter position \n");  
+    scanf("%d",&val);    
+    temp = head;     
+    while(temp ->  data    != val)  
+    temp = temp ->  next;   
+    if(temp ->  next    ==  NULL)    
+    {          printf("\ndeletion failed\n");   
+    }      else if(temp ->  next    ->  next    ==  NULL)
+    {          temp ->next = NULL;       
+    printf("\nNode has been Deleted\n");      }    
+    else      {           ptr   = temp ->  next;   
+    temp ->  next    = ptr   ->  next;  
+    ptr   ->  next    ->  prev    = temp;     
+    free(ptr);          
+    printf("\nNode has been Deleted\n");  
+    }    
+    }
+
+
+void display()
+{
+    struct node *ptr;
+    ptr=head;
+    if(ptr==NULL)
+    {
+        printf("Empty ");
+    }
+    else
+    {
+        while(ptr!=NULL)
+        {
+            printf("%d ",ptr->data);
+            ptr=ptr -> next;
+        }
+        printf("\n");
+    }
+}
+
+void main()
+{
+    int op=0;int a;
+    printf("---MENU---\n1.Insert \n2.Delete\n3.Display\n ");
+    
+    while(op!=4)
+    {
+        printf("\nEnter your choice : ");
+        scanf("%d",&op);
+        switch(op)
+        {
+            case 1:printf("Enter value to be inserted \n");
+                    scanf("%d",&a);
+                    insert_b(a);
+                    break;
+            case 2:delete_pos();
+                    break;
+            case 3: display();
+                    break;
+                    
+                    
+        }
+    }
+}
